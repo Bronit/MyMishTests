@@ -18,7 +18,7 @@ public class CreateNewAccount {
 
         WebElement mailField = driver.findElement(By.xpath("//input[@formcontrolname='email']"));
         mailField.click();
-        mailField.sendKeys("mishUser12345@gmail.com");
+        mailField.sendKeys("mishUser100@gmail.com");
 
 
         WebElement passwordField = driver.findElement(By.xpath("//input[@formcontrolname='password']"));
