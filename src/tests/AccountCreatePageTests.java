@@ -79,7 +79,7 @@ public class AccountCreatePageTests extends TestBase {
         waitUntilElementIsLoaded(driver, By.xpath("//span[@class='marginLeft']"), 20);
         WebElement logOutMenu = driver.findElement(By.xpath("//span[@class='marginLeft']"));
         logOutMenu.click();
-        //------------------------------Login created user----------
+
 
         waitUntilElementIsLoaded(driver, By.xpath("//span[contains(text(),'Login')]"), 40);
         WebElement login = driver.findElement(By.xpath("//span[contains(text(),'Login')]"));
