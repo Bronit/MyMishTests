@@ -25,5 +25,4 @@ public class EventsUnAuthPageHelper extends PageBase{
                 .xpath("//h1[@class='gorisontal-center']"));
         return titlePage.getText();
     }
-
 }

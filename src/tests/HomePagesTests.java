@@ -1,5 +1,4 @@
 package tests;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,31 +17,54 @@ import java.util.List;
 /**
  * Created by Inka on 16-Dec-18.
  */
-public class HomePagesTests extends TestBase {
+public class HomePagesTests extends TestBase{
     HomePageHelper homePage;
     EventsUnAuthPageHelper eventsUnAuthPage;
 
     @BeforeMethod
     public void initPage(){
-        homePage = PageFactory.initElements(driver, HomePageHelper.class);
-        eventsUnAuthPage = PageFactory.initElements(driver, EventsUnAuthPageHelper.class);
+        homePage = PageFactory
+                .initElements(driver,HomePageHelper.class);
+        eventsUnAuthPage = PageFactory
+                .initElements(driver,EventsUnAuthPageHelper.class);
+
     }
     @Test
-    public void openHomePage() {
+    public void openHomePage()  {
+
+       /* waitUntilElementIsLoaded(driver,
+                By.xpath("//span[contains(text(),'Login')]"),
+                45);
+        WebElement goToEventsButton = driver.findElement(
+                By.className("mat-stroked-button"));
+        Assert.assertTrue(goToEventsButton.getText()
+                .equals("Go to Event list"));*/
         homePage.waitUntilPageLoad();
-        String goToButtonName = homePage.getGoToEventButtonName();
-        Assert.assertEquals("Go to Event list", goToButtonName);
+        String goToButtonName =
+                homePage.getGoToEventButtonName();
+
+        Assert.assertEquals("Go to Event list",goToButtonName);
     }
 
     @Test
-    public void goToEventsTest() {
-        homePage.waitUntilPageLoad();
+    public void goToEventsTest()  {
+       /* waitUntilElementIsLoaded(driver,
+                By.xpath("//span[contains(text(),'Login')]"),
+                45);
+        WebElement goToEventsButton = driver.findElement(
+                By.className("mat-stroked-button"));
+        goToEventsButton.click();
+        waitUntilElementIsLoaded(driver,
+                By.xpath("//span[contains(text(),'Filters')]"),
+                20 );
+        WebElement titlePage = driver.findElement(By
+                .xpath("//h1[@class='gorisontal-center']"));
+        Assert.assertTrue(titlePage.getText().equals("Find event"));
+        homePage.waitUntilPageLoad();*/
         homePage.pressGoToEventButton();
         eventsUnAuthPage.waitUntilPageLoad();
         String header = eventsUnAuthPage.getHeader();
-        Assert.assertEquals(" Find event", header);
+        Assert.assertEquals("Find event",header);
     }
 
-    }
-
-
+}

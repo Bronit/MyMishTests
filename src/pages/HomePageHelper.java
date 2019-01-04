@@ -7,9 +7,9 @@ import org.openqa.selenium.WebElement;
 /**
  * Created by Inka on 23-Dec-18.
  */
-public class HomePageHelper extends PageBase {
+public class HomePageHelper extends PageBase{
 
-    public HomePageHelper(WebDriver driver) {
+    public HomePageHelper(WebDriver driver){
         super(driver);
     }
 
@@ -18,7 +18,7 @@ public class HomePageHelper extends PageBase {
                 By.xpath("//span[contains(text(),'Login')]"),
                 45);
         waitUntilElementIsLoaded(driver,
-                By.xpath("//span[contains(text(),'Create Account')]"), 40);
+                By.xpath("//span[contains(text(),'Create Account')]"),40);
     }
 
     public String getGoToEventButtonName() {
