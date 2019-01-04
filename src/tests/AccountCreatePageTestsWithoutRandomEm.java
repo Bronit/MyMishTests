@@ -18,7 +18,7 @@ public class AccountCreatePageTestsWithoutRandomEm extends TestBase {
 
         WebElement mailField = driver.findElement(By.xpath("//input[@formcontrolname='email']"));
         mailField.click();
-        mailField.sendKeys("10qaz@qaz");
+        mailField.sendKeys("12qaz@qaz");
 
         WebElement passwordField = driver.findElement(By.xpath("//input[@formcontrolname='password']"));
         passwordField.click();
@@ -47,9 +47,11 @@ public class AccountCreatePageTestsWithoutRandomEm extends TestBase {
         waitUntilElementIsLoaded(driver, By.xpath("//span[@class='marginLeft']"), 20);
         WebElement logOutMenu = driver.findElement(By.xpath("//span[@class='marginLeft']"));
         logOutMenu.click();
+    }
 
 //------------------------------Login created user----------
-
+        @Test
+        public void newAccountAndLogin() {
         waitUntilElementIsLoaded(driver, By.xpath("//span[contains(text(),'Login')]"), 40);
         WebElement login = driver.findElement(By.xpath("//span[contains(text(),'Login')]"));
         login.click();
@@ -57,7 +59,7 @@ public class AccountCreatePageTestsWithoutRandomEm extends TestBase {
         waitUntilElementIsLoaded(driver, By.xpath("//button[@type='button']/span[contains(text(),'Cancel')]/.."), 20);
         WebElement emailReg = driver.findElement(By.xpath("//input[@formcontrolname='email']"));
         emailReg.click();
-        emailReg.sendKeys("10qaz@qaz");
+        emailReg.sendKeys("12qaz@qaz");
 
         WebElement passReg = driver.findElement(By.xpath("//input[@formcontrolname='password']"));
         passReg.click();
