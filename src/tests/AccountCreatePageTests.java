@@ -1,103 +1,90 @@
 package tests;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.Test;
+  import org.openqa.selenium.By;
+  import org.openqa.selenium.WebElement;
+  import org.openqa.selenium.support.PageFactory;
+  import org.testng.Assert;
+  import org.testng.annotations.BeforeMethod;
+  import org.testng.annotations.Test;
+  import pages.*;
+  import java.util.Random;
 
+/**
+ * Created by Inka on 22-Dec-18.
+ */
 public class AccountCreatePageTests extends TestBase {
-    @Test
-    public void createNewAccount() {
-        String email1 = latinDigitString(8) + "@gmail.com";
-        waitUntilElementIsLoaded(driver, By.xpath("//span[contains(text(),'Create Account')]"), 40);
-
-        WebElement createAccount = driver.findElement(By.xpath("//span[contains(text(),'Create Account')]"));
-        createAccount.click();
-
-        WebElement mailField = driver.findElement(By.xpath("//input[@formcontrolname='email']"));
-        mailField.click();
-        mailField.sendKeys(email1);
+    HomePageHelper homePage;
+    AccountCreatePageHelper accountCreatePage;
+    ProfilePageHelper profilePage;
+    MenuPageHelper menuPage;
+    LoginPageHelper loginPage;
 
 
-        WebElement passwordField = driver.findElement(By.xpath("//input[@formcontrolname='password']"));
-        passwordField.click();
-        passwordField.sendKeys("example");
-
-        WebElement repPasswordField = driver.findElement(By.xpath("//input[@formcontrolname='passwordRep']"));
-        repPasswordField.click();
-        repPasswordField.sendKeys("example");
-
-        waitUntilElementIsLoaded(driver, By.xpath("//span[contains(text(),'Registration')]"), 20);
-        WebElement registrationButton = driver.findElement(By.xpath("//span[contains(text(),'Registration')]"));
-        registrationButton.click();
-
-
-        waitUntilElementIsLoaded(driver, By.xpath("//button[@type='button']/span[contains(text(),'Cancel')]/.."), 40);
-        waitUntilElementIsLoaded(driver, By.xpath("//mat-icon[@mattooltip='Menu']"), 20);
-
-        WebElement menuButton = driver.findElement(By.xpath("//mat-icon[@mattooltip='Menu']"));
-        menuButton.click();
-
-        waitUntilElementIsLoaded(driver, By.xpath("//span[@class='marginLeft']"), 20);
-        WebElement logOutMenu = driver.findElement(By.xpath("//span[@class='marginLeft']"));
-        logOutMenu.click();
+    @BeforeMethod
+    public void initPage() {
+        homePage = PageFactory
+                .initElements(driver, HomePageHelper.class);
+        accountCreatePage = PageFactory
+                .initElements(driver, AccountCreatePageHelper
+                        .class);
+        profilePage = PageFactory.initElements(driver,
+                ProfilePageHelper.class);
+        menuPage = PageFactory
+                .initElements(driver, MenuPageHelper.class);
+        loginPage = PageFactory
+                .initElements(driver,LoginPageHelper.class);
     }
 
     @Test
-    public void newAccountAndLogin() {
-        String email2 = latinDigitString(8) + "@gmail.com";
-        waitUntilElementIsLoaded(driver, By.xpath("//span[contains(text(),'Create Account')]"), 40);
+    public void createNewAccount(){
+        homePage.waitUntilPageLoad()
+                .pressCreateAccountButton();
+        accountCreatePage.waitUntilPageLoad()
+                .enterValueToFieldEmailRandom() //enterValueToFieldEmail(email1)
+                .enterValueToFieldPassword("123456")
+                .enterValueToFieldRepPassword("123456")
+                .pressRegistrationButton();
+        profilePage.waitUntilPageLoad()
+                .menuButtonClick();
+        menuPage.waitUntilPageLoad()
+                .pressLogOutButton();
+        homePage.waitUntilPageLoad();
+        Assert.assertEquals(homePage.getHeader(), "Shabbat in the family circle");
+    }
 
-        WebElement createAccount = driver.findElement(By.xpath("//span[contains(text(),'Create Account')]"));
-        createAccount.click();
+    @Test
+    public void createNewAccountAndLogin(){
+        String email2 = accountCreatePage.latinDigitString(10) + "@gmail.com";
+        System.out.println("email2:" + email2);
+        homePage.waitUntilPageLoad()
+                .pressCreateAccountButton();
+        accountCreatePage.waitUntilPageLoad()
+                .enterValueToFieldEmail(email2)
+                .enterValueToFieldPassword("123456")
+                .enterValueToFieldRepPassword("123456")
+                .pressRegistrationButton();
+        profilePage.waitUntilPageLoad()
+                .menuButtonClick();
+        menuPage.waitUntilPageLoad()
+                .pressLogOutButton();
+        homePage.waitUntilPageLoad();
+        Assert.assertEquals(homePage.getHeader(), "Shabbat in the family circle");
 
-        WebElement mailField = driver.findElement(By.xpath("//input[@formcontrolname='email']"));
-        mailField.click();
-        mailField.sendKeys(email2);
+        homePage.pressLoginButton();
+        loginPage.enterValueToFieldEmail(email2)
+                .enterValueToFieldPassword("123456")
+                .pressLogInButton();
+        profilePage.waitUntilPageLoad();
+        System.out.println("email2:" + email2);
+        Assert.assertEquals(profilePage.getHeader(),"Registration");
 
+        profilePage.menuButtonClick();
+        menuPage.waitUntilPageLoad();
+        menuPage.pressLogOutButton();
+        homePage.waitUntilPageLoad();
 
-        WebElement passwordField = driver.findElement(By.xpath("//input[@formcontrolname='password']"));
-        passwordField.click();
-        passwordField.sendKeys("example");
-
-        WebElement repPasswordField = driver.findElement(By.xpath("//input[@formcontrolname='passwordRep']"));
-        repPasswordField.click();
-        repPasswordField.sendKeys("example");
-
-        waitUntilElementIsLoaded(driver, By.xpath("//span[contains(text(),'Registration')]"), 20);
-        WebElement registrationButton = driver.findElement(By.xpath("//span[contains(text(),'Registration')]"));
-        registrationButton.click();
-
-
-        waitUntilElementIsLoaded(driver, By.xpath("//button[@type='button']/span[contains(text(),'Cancel')]/.."), 40);
-        waitUntilElementIsLoaded(driver, By.xpath("//mat-icon[@mattooltip='Menu']"), 20);
-        /*WebElement cancelButton = driver
-                .findElement(By.xpath("//button[@type='button']/span[contains(text(),'Cancel')]/.."));*/
-
-        WebElement menuButton = driver.findElement(By.xpath("//mat-icon[@mattooltip='Menu']"));
-        menuButton.click();
-
-        waitUntilElementIsLoaded(driver, By.xpath("//span[@class='marginLeft']"), 20);
-        WebElement logOutMenu = driver.findElement(By.xpath("//span[@class='marginLeft']"));
-        logOutMenu.click();
-
-
-        waitUntilElementIsLoaded(driver, By.xpath("//span[contains(text(),'Login')]"), 40);
-        WebElement login = driver.findElement(By.xpath("//span[contains(text(),'Login')]"));
-        login.click();
-
-        waitUntilElementIsLoaded(driver, By.xpath("//button[@type='button']/span[contains(text(),'Cancel')]/.."), 20);
-        WebElement emailReg = driver.findElement(By.xpath("//input[@formcontrolname='email']"));
-        emailReg.click();
-        emailReg.sendKeys(email2);
-
-        WebElement passReg = driver.findElement(By.xpath("//input[@formcontrolname='password']"));
-        passReg.click();
-        passReg.sendKeys("example");
-
-        WebElement log_In = driver.findElement(By.xpath("//span[contains(text(),'Log in')]"));
-        log_In.click();
+        Assert.assertEquals(homePage.getHeader(),"Shabbat in the family circle");
 
     }
+
 }
-
-

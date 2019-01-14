@@ -42,8 +42,8 @@ public class HomePagesTests extends TestBase{
 
     @Test
     public void goToEventsTest()  {
-        homePage.waitUntilPageLoad();
-        homePage.pressGoToEventButton();
+        homePage.waitUntilPageLoad()
+                .pressGoToEventButton();
         eventsUnAuthPage.waitUntilPageLoad();
         String header = eventsUnAuthPage.getHeader();
         Assert.assertEquals("Find event",header);

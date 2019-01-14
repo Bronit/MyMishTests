@@ -1,53 +1,59 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 /**
  * Created by Inka on 26-Dec-18.
  */
 public class LoginPageHelper extends PageBase {
+    @FindBy(xpath = "//span[contains(text(),'Cancel')]" )
+    WebElement cancelButton;
+    @FindBy(xpath = "//input[@formcontrolname='email']")
+    WebElement emailField;
+    @FindBy(xpath = "//input[@formcontrolname='password']")
+    WebElement passwordField;
+    @FindBy(xpath = "//span[contains(text(),'Log in')]")
+    WebElement loginButton;
+    @FindBy(xpath =
+            "//div[@class='alert alert-danger ng-star-inserted']")
+    WebElement alertText;
+
+
 
     public LoginPageHelper(WebDriver driver) {
         super(driver);
     }
 
-    public void waitUntilPageLoad() {
+    public LoginPageHelper waitUntilPageLoad() {
         waitUntilElementIsLoaded(driver,
-                By.xpath("//span[contains(text(),'Cancel')]"),
+                cancelButton,
                 20);
+        return this;
     }
 
-    public void enterValueToFieldEmail(String value) {
-        WebElement email_field = driver.findElement(By
-                .xpath("//input[@formcontrolname='email']"));
-        email_field.click();
-        email_field.sendKeys(value);
+    public LoginPageHelper enterValueToFieldEmail(String value) {
+
+        setValueToField(emailField,value);
+        return this;
     }
 
-    public void enterValueToFieldPassword(String value) {
-        WebElement password_field = driver.findElement(By
-                .xpath("//input[@formcontrolname='password']"));
-        password_field.click();
-        password_field.sendKeys(value);
+    public LoginPageHelper enterValueToFieldPassword(String value) {
+        setValueToField(passwordField,value);
+        return this;
     }
 
-    public void pressLogInButton() {
-        waitUntilElementIsLoaded(driver,
-                By.xpath("//span[contains(text(),'Log in')]"),
-                20);
-        WebElement login_button=driver.findElement(By
-                .xpath("//span[contains(text(),'Log in')]"));
-        login_button.click();
+    public LoginPageHelper pressLogInButton() {
+        waitUntilElementIsLoaded(driver, loginButton, 20);
+        loginButton.click();
+        return this;
     }
 
     public String getAlertText() {
-        waitUntilElementIsLoaded(driver,
-                By.xpath("//div[@class='alert alert-danger ng-star-inserted']"),
-                20);
-        WebElement alertText = driver.findElement(By.xpath("//div[@class='alert alert-danger ng-star-inserted']"));
+        waitUntilElementIsLoaded(driver, alertText,20);
         return alertText.getText();
 
     }
-}
+
+       }
